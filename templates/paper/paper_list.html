@@ -1,0 +1,65 @@
+{% extends 'paper/base.html' %}
+
+{% block table %}
+
+
+        <!-- ОСНОВНА ЧАСТИНА -->
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Статті</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+            <!-- ТАБЛИЦЯ -->
+            <!-- /.row -->
+            <div class="row">
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Назва</th>
+                                    <th>Тема</th>
+                                    <th>Автор</th>
+                                    <th>Рік</th>
+                                    <th>Файл</th>
+                                    <th>Виступ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for paper in paper_list %}
+                                <tr class="odd gradeX">
+                                    <td>{{ paper.name }}</td>
+                                    <td>{{ paper.theme }}</td>
+                                    <td><a href="mailto:{{ paper.user.email }}">{{ paper.user.first_name }} {{ paper.user.last_name }}</a></td> <!-- при натисканні на автора перенаправляє на його емейл -->
+
+                                    <td class="center">{{ paper.year }}</td>
+                                    <td class="center">
+                                        <a href="{{ paper.file.url }}" class="dropdown-toggle fa fa-download fa-fw" target="_blank"> <!-- href="#" СИЛКА НА СТОРІНКУ скачування СТАТТІ -->
+{#                                            <i class="fa fa-download fa-fw"></i>  #}
+                                        </a>
+                                    </td>
+                                    <td class="center">{{ paper.presence }}</td> <!-- КАРТИНКА З ГАЛОЧКОЮ АБО ХРЕСТИКОМ, В ЗАЛЕЖНОСТІ ЧИ БУВ НА КОНФІ ЧИ НІ -->
+{#                                    <td>#}
+{#                                    <div class="container1">#}
+{#                                            <input  class="checkbox" type="checkbox" value="" disabled {% if paper.presence  %}checked{% endif %}>#}
+{#                                        <label class="checkmark"></label>#}
+{#                                    </div>#}
+{#                                    </td>#}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+            </div>
+
+        </div>
+        <!-- /#page-wrapper -->
+
+
+    <!-- /#wrapper -->
+{% endblock table %}

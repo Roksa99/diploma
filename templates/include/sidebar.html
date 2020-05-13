@@ -1,0 +1,102 @@
+{% load tag %}
+
+<!-- САЙДБАР -->
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+
+
+        <ul class="nav" id="side-menu">
+
+            <!-- ПОШУК -->
+            <li class="sidebar-search">
+                <div class="input-group custom-search-form">
+{#                    <input type="text" class="form-control" placeholder="Пошук...">#}
+{#                    <span class="input-group-btn">#}
+{#                        <button class="btn btn-default" type="button">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </button>#}
+{#                    </span>#}
+                </div>
+                <!-- /input-group -->
+                <div class="input-group custom-search-form">
+
+                </div>
+            </li>
+
+
+                <!-- /input-group -->
+
+
+            <!-- СТАТТІ -->
+            <li>
+                <a href="{% url 'paper' %}"><i class="fa fa-files-o fa-fw"></i> Статті</a>
+            </li>
+
+
+            <!-- РОКИ СТАТЕЙ -->
+            <form action="{% url 'filter' %}" method="get" name="filter" class="nav">
+                <li>
+                    <a href="#"><i class="fa fa-calendar fa-fw"></i> Роки<span class="fa arrow"></span></a>
+                    <!-- перенаправляти на сторінку як індекс але вже з фільтром по темі і без одної колонки "тема" -->
+                    <ul class="nav nav-second-level">
+                        {% for paper in view.get_year %}
+                            <li >
+                                <button style="color: #428bca; text-align: left; text-indent: 2em; background-color: #f8f8f8; " class="btn btn-link btn-block" type="submit" name="year" value="{{ paper.id }}"> {{ paper.year }}</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
+            <!-- ТЕМИ СТАТЕЙ -->
+                <li>
+                    <a href="#"><i class="fa fa-calendar fa-fw"></i> Теми<span class="fa arrow"></span></a>
+                    <!-- перенаправляти на сторінку як індекс але вже з фільтром по темі і без одної колонки "тема" -->
+                    <ul class="nav nav-second-level">
+                        {% for paper in view.get_theme %}
+                            <li >
+                                <button style="color: #428bca; text-align: left; text-indent: 2em; background-color: #f8f8f8; " class="btn btn-link btn-block" type="submit" name="theme" value="{{ paper.id }}"> {{ paper.name }}</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+            </form>
+
+
+                <!-- /.nav-second-level -->
+            </li>
+            <!-- СТАТИСТИКА -->
+            <li>
+                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Статистика<span class="fa arrow"></span></a>
+                <!-- назви статистик які будуть -->
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{% url 'st_theme' %}">Аналіз тем</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'st_presence' %}">Виступи</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'st_paper_spiker' %}">Приріст(Статті-Спікери)</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'st_theme_paper' %}">Тематика</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'st_sex' %}">Стать</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'st_age' %}">Вік</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'st_country' %}">Країна</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

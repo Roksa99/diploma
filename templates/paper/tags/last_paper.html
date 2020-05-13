@@ -1,0 +1,10 @@
+{% for paper1 in last_paper %}
+    <li>
+        <a href="{% url 'edit' id=paper1.id %}"><!-- силка на редагування статті -->
+            <div>
+                <strong style="color: #428bca;">{{ paper1.name }}</strong>
+            </div>
+        </a>
+    </li>
+    <li class="divider"></li>
+{% endfor %}

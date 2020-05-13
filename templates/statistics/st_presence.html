@@ -1,0 +1,80 @@
+{% extends 'paper/base.html' %}
+{% load static %}
+{% block table %}
+    <!--  Основна частин, що потрібно копіювати в файл -->
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Статистика виступів на конференції</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-6 -->
+
+
+            <form  method="get" class="form-group col-lg-2">
+                <label>{{ insert_true.form.year.label }}</label>
+                <div class="checkbox">
+                    {{ insert_true.form.year }}
+                </div>
+                <label>{{ insert_true.form.theme.label }}</label>
+                <div class="checkbox">
+                    {{ insert_true.form.theme }}
+                </div>
+                <button type="submit" class="btn btn-primary">Сортувати</button>
+            </form>
+            <div class="col-lg-7">
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="st_presence"></div>
+                </div>
+                <!-- /.panel-body -->
+
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+
+
+{% endblock table %}
+
+
+{% block script %}
+
+    <script>
+
+        $(function() {
+
+            Morris.Donut({
+                element: 'st_presence',
+                data: [
+                    {% for theme in insert_true.qs %}
+                        {
+                            label: '{{ theme.presence }}',
+                            value: {{ theme.paper_sum }}
+                        }
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ],
+                    {#[{label: "Виступали",#}
+                    {#value: {{ insert_true }}}, {label: "Не виступали",#}
+                    {#value: {{ insert_false }}}],#}
+                resize: true,
+                {#formatter: function (y, value) {return y + '%'}#}
+            });
+
+
+        });
+    </script>
+
+{% endblock script %}

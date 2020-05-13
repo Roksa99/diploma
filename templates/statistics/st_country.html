@@ -1,0 +1,76 @@
+{% extends 'paper/base.html' %}
+{% load static %}
+{% block table %}
+    <!--  Основна частин, що потрібно копіювати в файл -->
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Статистика(назва діаграми)</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-6 -->
+            <form  method="get" class="form-group col-lg-2">
+                <label>{{ insert_country.form.year.label }}</label>
+                <div class="checkbox">
+                    {{ insert_country.form.year }}
+                </div>
+                <label>{{ insert_country.form.theme.label }}</label>
+                <div class="checkbox">
+                    {{ insert_country.form.theme }}
+                </div>
+                <button type="submit" class="btn btn-primary">Сортувати</button>
+            </form>
+
+            <div class="col-lg-7">
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="st_country"></div>
+                </div>
+                <!-- /.panel-body -->
+
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-6 -->
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+
+
+{% endblock table %}
+
+
+{% block script %}
+
+    <script>
+
+        $(function() {
+
+            Morris.Donut({
+                element: 'st_country',
+                data: [
+                    {% for country in insert_country.qs %}
+                        {
+                            label: '{{ country.user__profile__country__country }}',
+                            value: {{ country.country_sum }}
+                        }
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ],
+                resize: true,
+                {#formatter: function (y, value) {return y + '%'}#}
+            });
+
+
+        });
+    </script>
+
+{% endblock script %}

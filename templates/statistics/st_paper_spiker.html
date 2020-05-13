@@ -1,0 +1,78 @@
+{% extends 'paper/base.html' %}
+{% load static %}
+{% block table %}
+    {% load widget_tweaks%}
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Статистика приріст спікерів та статтей</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+
+
+
+            <form  method="get" class="form-group col-lg-2">
+                <label>{{ paper_spiker.form.theme.label }}</label>
+                <div class="checkbox">
+                    {{ paper_spiker.form.theme }}
+                </div>
+                <button type="submit" class="btn btn-primary">Сортувати</button>
+            </form>
+
+
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-10">
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="st_paper_spiker"></div>
+                </div>
+                <!-- /.panel-body -->
+
+                <!-- /.panel -->
+            </div>
+
+
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+
+{% endblock table %}
+
+
+{% block script %}
+
+    <script>
+        $(function() {
+
+            Morris.Bar({
+                element: 'st_paper_spiker',
+                data: [
+                    {% for i in paper_spiker.qs %}
+                    {
+                    y: '{{ i.year__year }}',
+                    a: {{ i.paper_sum }},
+                    b: {{ i.spiker_sum }}
+                }
+                {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Статті', 'Доповідачі'],
+                hideHover: 'auto',
+                resize: true
+            });
+
+        });
+
+    </script>
+
+{% endblock script %}

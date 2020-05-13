@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load widget_tweaks%}
+    {% load tag %}
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Реєстрація</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form method="POST" class="form-group">
+                            {% csrf_token %}
+                            <fieldset>
+                                {% for field in form %}
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">{{ field.label }}</label>
+                                        <div class="col-sm-8">
+{#                                            <span class="reg-field">{{ field }}</span>#}
+                                            {% render_field field class="form-control" %}
+{#                                            {{ field|add_class:"form-control" }}#}
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {#                        {{profile_form.as_p}}#}
+                                {#                            {% for field in profile_form %}#}
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">{{ profile_form.sex.label }}</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="sex">
+                                            <option disabled selected> Оберіть стать </option>
+                                            {% get_sex as sex %}
+                                            {% for i in sex %}
+                                                <option name="sex" value="{{ i.id }}">{{ i.sex }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label ">{{ profile_form.birthday.label }}</label>
+                                    <div class="col-sm-8">
+                                        {% render_field profile_form.birthday class="form-control" %}
+{#                                        {{ profile_form.birthday }}#}
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">{{ profile_form.country.label }}</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="country">
+                                            <option disabled selected> Оберіть країну </option>
+                                            {% get_country as country %}
+                                            {% for i in country %}
+                                                <option name="sex" value="{{ i.id }}">{{ i.country }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {#                            {% endfor %}#}
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">Реєстрація</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

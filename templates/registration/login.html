@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load widget_tweaks%}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Увійти</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form method="POST"  class="form-group" >
+                        {% csrf_token %}
+                            <fieldset>
+                                {% for field in form %}
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">{{ field.label }}</label>
+                                        <div class="col-sm-8">
+                                            {% render_field field class="form-control" %}
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">Увійти</button>
+                                <div class="checkbox">
+                                    <p >Не маєте облікового запису? <a href="{% url 'register' %}"> Зареєструйтесь тут</a>!</p>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

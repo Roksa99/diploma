@@ -1,0 +1,61 @@
+{% load tag %}
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand">Назва конференції</a>
+</div>
+<!-- /.navbar-header -->
+
+<!-- ХЕДЕР -->
+<ul class="nav navbar-top-links navbar-right">
+
+    <!-- Статті Юзера -->
+    <!-- /.dropdown -->
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-tasks">
+
+{#            {% include 'paper/tags/last_paper.html' %}#}
+            {% get_last_paper request %}
+
+            <li>
+                <a class="text-center" href="{% url 'user_paper' %}">
+                    <strong>Більше</strong>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- /.dropdown-tasks -->
+    </li>
+
+    <!-- ЗАВАНТАЖЕННЯ СТАТТІ -->
+    <!-- /.dropdown -->
+    <li class="dropdown">
+        <!-- href="#" СИЛКА НА СТОРІНКУ ЗАВАНТАЖЕННЯ СТАТТІ -->
+        <a class="dropdown-toggle" href="{% url 'upload' %}">
+            <i class="fa fa-upload fa-fw"></i>
+        </a>
+        <!-- /.dropdown-alerts -->
+    </li>
+
+    <!-- ВИХІД -->
+    <!-- /.dropdown -->
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">
+            <i>{{ user.username }}</i> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw"></i> Вихід</a>
+            </li>
+        </ul>
+        <!-- /.dropdown-user -->
+    </li>
+    <!-- /.dropdown -->
+</ul>
+<!-- /.navbar-top-links -->
